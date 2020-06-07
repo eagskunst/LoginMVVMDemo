@@ -9,7 +9,7 @@ import timber.log.Timber
  */
 class LoginRepository(private val firebaseAuth: FirebaseAuth) {
 
-    suspend fun loginUser(info: UserCredentials): LoginViewState {
+    suspend fun signInUser(info: UserCredentials): LoginViewState {
         val (email, password) = info
 
         return try {
@@ -21,8 +21,10 @@ class LoginRepository(private val firebaseAuth: FirebaseAuth) {
         }
     }
 
-    fun logoutUser(): LoginViewState {
+    fun signOutUser(): LoginViewState {
         firebaseAuth.signOut()
         return Initial
     }
+
+    fun currentUser() = firebaseAuth.currentUser
 }
