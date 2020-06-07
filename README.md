@@ -6,7 +6,7 @@ Clone the project and add your own `google-services.json` to the `app` folder.
 
 ### Modifying
 #### Folder structure
-There are 5 main folders: app, db, ui, utils.
+There are 4 main folders: app, data, ui, utils.
 * app: Contains Application and dependencies stuff.
 * data: Contains the repository and data classes related to the user data and view states.
 * ui: Contains the LoginActivity and the AuthViewModel.
