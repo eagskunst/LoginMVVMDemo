@@ -1,4 +1,4 @@
-package com.eagskunst.apps.logindemo
+package com.eagskunst.apps.logindemo.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,13 +8,13 @@ import com.eagskunst.apps.logindemo.utils.textString
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityLoginBinding
+    private val binding: ActivityLoginBinding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.usernameEt.doAfterTextChanged { changeButtonState() }
         binding.passwordEt.doAfterTextChanged { changeButtonState() }
     }
