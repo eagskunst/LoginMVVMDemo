@@ -27,11 +27,12 @@ class LoginViewModel(private val repository: LoginRepository): ViewModel() {
     }
 
     fun signInUser(email: String, password: String) {
+        _loginState.postValue(Loading)
         viewModelScope.launch {
             val newState = repository.signInUser(
                 UserCredentials(email, password)
             )
-            _loginState.postValue(newState)
+            _loginState.value = newState
         }
     }
 
