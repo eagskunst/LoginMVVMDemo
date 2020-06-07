@@ -19,6 +19,7 @@ There are 5 main folders: app, db, ui, utils.
 * ViewModel and LiveData
 * Coroutines
 * MVVM architecture + Repository pattern
+* Unit test with mockk
 
 ### Check the app!
 You could download the .apk file from the release tab.
