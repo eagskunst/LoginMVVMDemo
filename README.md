@@ -25,5 +25,6 @@ There are 4 main folders: app, data, ui, utils.
 You could download the .apk file from the release tab.
 
 Use this credentials if you want to test the functionality:
-    logindemo@yopmail.com
-    demo12345
+
+    Email: logindemo@yopmail.com
+    Password: demo12345
