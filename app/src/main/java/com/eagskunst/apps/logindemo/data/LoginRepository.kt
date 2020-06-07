@@ -1,6 +1,7 @@
 package com.eagskunst.apps.logindemo.data
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 
@@ -16,8 +17,13 @@ class LoginRepository(private val firebaseAuth: FirebaseAuth) {
             val data = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             Success(data.user)
         } catch (e: Exception) {
-            Timber.e(e.cause)
-            Error("Authentication failed", e)
+            Timber.d("Sign in error: ${e.message}")
+            if (e is FirebaseAuthException) {
+                Error(e.message ?: "Authentication failed", e)
+            }
+            else {
+                Error("Authentication failed", e)
+            }
         }
     }
 

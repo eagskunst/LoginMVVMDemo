@@ -53,7 +53,10 @@ class LoginActivity : AppCompatActivity() {
             is Error ->  {
                 Snackbar.make(binding.root, viewState.msg, Snackbar.LENGTH_SHORT).show()
             }
-            Loading -> binding.progressBar.visibility = View.VISIBLE
+            Loading -> {
+                binding.loginBtn.isEnabled = false
+                binding.progressBar.visibility = View.VISIBLE
+            }
             is Success -> {
                 binding.welcome.text = "Welcome ${viewState.firebaseUser?.email}"
                 binding.signOutBtn.visibility = View.VISIBLE
@@ -61,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (viewState !is Loading){
+            changeButtonState()
             binding.progressBar.visibility = View.GONE
         }
     }
