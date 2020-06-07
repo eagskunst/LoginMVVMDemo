@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by eagskunst in 7/6/2020.
  */
-class LoginViewModel(private val repository: LoginRepository): ViewModel() {
+class AuthViewModel(private val repository: AuthRepository): ViewModel() {
 
     private val _loginState = MutableLiveData<LoginViewState>()
     val loginState = _loginState as LiveData<LoginViewState>

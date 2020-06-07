@@ -26,7 +26,7 @@ class App : Application() {
         startKoin {
             androidLogger(Level.INFO)
             androidContext(this@App)
-            modules(loginModule)
+            modules(authModule)
         }
 
         Timber.plant(Timber.DebugTree())

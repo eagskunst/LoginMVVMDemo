@@ -20,9 +20,9 @@ import com.eagskunst.apps.logindemo.TestValuesUtils.validCredentials
 /**
  * Created by eagskunst in 7/6/2020.
  */
-class LoginRepositoryTest {
+class AuthRepositoryTest {
 
-    lateinit var repository: LoginRepository
+    lateinit var repository: AuthRepository
     lateinit var expectedException: FirebaseAuthException
 
     @Before
@@ -50,7 +50,7 @@ class LoginRepositoryTest {
         every { auth.signOut() } returns Unit
 
 
-        repository = LoginRepository(auth)
+        repository = AuthRepository(auth)
     }
 
     @ExperimentalCoroutinesApi
@@ -67,7 +67,7 @@ class LoginRepositoryTest {
     @Test
     fun test_signIn_invalidCredentials() {
         runBlockingTest {
-            val expectedState = Error(expectedException.message ?: "", expectedException)
+            val expectedState = Fail(expectedException.message ?: "", expectedException)
             val actualState = repository.signInUser(invalidCredentials)
             assertThat<LoginViewState>(actualState, `is`(expectedState))
         }

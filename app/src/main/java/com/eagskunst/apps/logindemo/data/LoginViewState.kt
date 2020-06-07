@@ -12,4 +12,4 @@ sealed class LoginViewState
 object Initial : LoginViewState()
 data class Success(val firebaseUser: FirebaseUser?): LoginViewState()
 object Loading: LoginViewState()
-data class Error(val msg: String, val exception: Exception): LoginViewState()
+data class Fail(val msg: String, val exception: Exception): LoginViewState()

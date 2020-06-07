@@ -17,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
         ActivityLoginBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: LoginViewModel by viewModel()
+    private val viewModel: AuthViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.welcome.text = ""
                 binding.signOutBtn.visibility = View.GONE
             }
-            is Error ->  {
+            is Fail ->  {
                 Snackbar.make(binding.root, viewState.msg, Snackbar.LENGTH_SHORT).show()
             }
             Loading -> {

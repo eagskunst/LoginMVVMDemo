@@ -2,7 +2,7 @@ package com.eagskunst.apps.logindemo.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.eagskunst.apps.logindemo.data.*
-import com.eagskunst.apps.logindemo.ui.LoginViewModel
+import com.eagskunst.apps.logindemo.ui.AuthViewModel
 import com.eagskunst.apps.logindemo.getOrAwaitValue
 import com.google.firebase.auth.FirebaseUser
 import io.mockk.coEvery
@@ -26,31 +26,31 @@ import org.junit.Rule
  * Created by eagskunst in 7/6/2020.
  */
 @ExperimentalCoroutinesApi
-class LoginViewModelTests {
+class AuthViewModelTests {
 
     private lateinit var mockUser: FirebaseUser
-    lateinit var viewModel: LoginViewModel
-    lateinit var expectedError: Error
+    lateinit var viewModel: AuthViewModel
+    lateinit var expectedFail: Fail
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
     private val mainThreadSurrogate = newSingleThreadContext("aThread")
 
     @Before
     fun setup() {
-        val repo = mockk<LoginRepository>()
+        val repo = mockk<AuthRepository>()
         mockUser = mockk<FirebaseUser>()
-        expectedError = Error("Auth failed",
+        expectedFail = Fail("Auth failed",
             Exception("Auth failed"))
 
         every { mockUser.displayName } returns "Emmanuel"
 
         coEvery { repo.signInUser(validCredentials) } returns Success(mockUser)
-        coEvery { repo.signInUser(invalidCredentials) } returns expectedError
+        coEvery { repo.signInUser(invalidCredentials) } returns expectedFail
         coEvery { repo.signOutUser() } returns Initial
         every { repo.currentUser() } returns null
 
         Dispatchers.setMain(mainThreadSurrogate)
-        viewModel = LoginViewModel(repo)
+        viewModel = AuthViewModel(repo)
     }
 
     @Test
@@ -72,7 +72,7 @@ class LoginViewModelTests {
 
     @Test
     fun assertState_invalidCredentials_IsError() {
-        val expectedState = expectedError
+        val expectedState = expectedFail
         viewModel.signInUser(invalidCredentials.email, invalidCredentials.password)
         val actualState= viewModel.loginState.getOrAwaitValue(latchCount = 2)
         assertThat<LoginViewState>(actualState, CoreMatchers.`is`(expectedState))

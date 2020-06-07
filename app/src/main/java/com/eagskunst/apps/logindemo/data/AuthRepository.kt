@@ -8,7 +8,7 @@ import timber.log.Timber
 /**
  * Created by eagskunst in 7/6/2020.
  */
-class LoginRepository(private val firebaseAuth: FirebaseAuth) {
+class AuthRepository(private val firebaseAuth: FirebaseAuth) {
 
     suspend fun signInUser(info: UserCredentials): LoginViewState {
         val (email, password) = info
@@ -19,10 +19,10 @@ class LoginRepository(private val firebaseAuth: FirebaseAuth) {
         } catch (e: Exception) {
             Timber.d("Sign in error: ${e.message}")
             if (e is FirebaseAuthException) {
-                Error(e.message ?: "Authentication failed", e)
+                Fail(e.message ?: "Authentication failed", e)
             }
             else {
-                Error("Authentication failed", e)
+                Fail("Authentication failed", e)
             }
         }
     }
